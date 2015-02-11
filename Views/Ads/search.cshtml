@@ -1,0 +1,98 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <!-- /Static navbar -->
+    <!-- Content -->
+    <div class="row content">
+        <div class="col-lg-3 content-left">
+            
+            <h4>Categories</h4>
+            <div class="list-group categories">
+                <a href="/Ads/category/Books" class="list-group-item">Books <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Cameras" class="list-group-item">Cameras & Photo <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Cell" class="list-group-item">Cell Phones & Accessories <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Clothing" class="list-group-item">Clothing, Shoes & Accessories <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Computers" class="list-group-item">Computers & Networking <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/DVDs" class="list-group-item">DVDs & Movies <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Health" class="list-group-item">Health & Beauty <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Music" class="list-group-item">Music <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/ToysS" class="list-group-item">Toys & Hobbies <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+
+        </div>
+        <div class="col-lg-9 content-right">
+
+            <h4>Search</h4>
+            <div class="well well-sm">
+                
+                    <fieldset>
+                        <input type="text" id="searchFeild" class="form-control" /> 
+                        <br/>
+                        <input type="button" id="searchButton" class="btn btn-danger btn-lg btn-search" value="Search" />
+                    </fieldset>
+                
+            </div>
+            
+            <div class="row classifieds-table">
+                <div class="col-lg-12">
+                    <table id="ads" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th class="text-center">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /Content -->
+    <!-- JS -->
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/respond.min.js"></script>
+    <script src="~/Scripts/jquery.slides.min.js"></script>
+    <script>
+    $( document ).ready(function() {
+      // Drop down menu handler
+      $('.dropdown-menu').find('form').click(function (e) {
+          e.stopPropagation();
+      });
+
+      $("#searchButton").click(function () {
+
+          var key = $("#searchFeild").val();
+
+          $.getJSON("/Ads/searchResult?key=" + key, function (data) {
+
+              $('#ads tbody tr').remove();
+
+              $.each(data, function (i, item) {
+
+                  var row = $('<tr><td class="col-sm-8 col-md-6"><div class="media"><a class="thumbnail pull-left" href="#"><img class="media-object" src="' + item.image + '" style="width: 72px; height: 72px;" /></a><div class="media-body"><h4 class="media-heading"><a href="/Ads/detail/' + item.id + '">' + item.title + '</a></h4><p><small>' + item.description + '</small></p></div></div></td><td class="col-sm-1 col-md-1 text-center" style="vertical-align: middle;"><strong>' + item.price + 'PKR</strong></td></tr> ');
+
+                  $('#ads tbody').append(row);
+
+               });
+
+          });
+
+      });
+
+
+    });
+    </script>
+    <!-- /JS -->
+
+</html>

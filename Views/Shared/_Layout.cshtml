@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="...">
+    <meta name="keywords" content="...">
+    <meta name="author" content="...">
+    <title>CZSale - Classified Ads Website</title>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="~/Content/czsale.css" rel="stylesheet" media="screen">
+    <link href="~/Content/czsale-responsive.css" rel="stylesheet" media="screen">
+
+    <script src='<%= Url.Content("~/scripts/jquery.validate.js") %>'></script>
+    <script src='<%= Url.Content("~/scripts/jquery.validate.unobtrusive.js") %>'></script>
+
+
+
+</head>
+<body>
+    <div class="container wrapper">
+        <!-- Logo -->
+        <div class="logo">
+            <a href="/Home/index"><img src="~/Images/czsale_logo.png"></a>
+        </div>
+        <!-- /Logo -->
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#czsale-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="czsale-navbar">
+                <a href="/Ads/addClassified" class="btn btn-success navbar-btn add-classified-btn navbar-left" role="button">Add classified</a>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/Home/index">Home</a></li>
+                    <li><a href="/Home/contact">Contact</a></li>
+                    <li><a href="/Home/help">Help</a></li>
+                    <li><a href="/Home/signUp">Sign Up</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
+                        <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <form class="form" role="form" method="post" action="/Home/login" accept-charset="UTF-8" id="login-nav">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                                <input type="email" class="form-control" name="email" id="exampleInputEmail2" placeholder="Email address" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                <input type="password" class="form-control" name="pwd" id="exampleInputPassword2" placeholder="Password" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-success btn-block">Sign in</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        @RenderBody()
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+
+        <div class="footer">
+            <div class="well well-sm">
+                <div class="pull-left">
+                    <ul class="nav nav-pills">
+                        <li><a href="/Ads/addClassified"><span class="glyphicon glyphicon-plus"></span> Add classified</a></li>
+                    </ul>
+                </div>
+                <div class="pull-right">
+                    <ul class="nav nav-pills">
+                        <li><a href="/Home/help">Help</a></li>
+                        <li><a href="/Home/contact">Contact</a></li>
+
+                    </ul>
+                </div>
+                <div class="clearfix">&nbsp;</div>
+            </div>
+            <div class="pull-right">
+                <p class="text-muted"><small>Copyright &copy; 2013-2014, SenseMedia.cz - All Rights Reserved.</small></p>
+            </div>
+        </div>
+    </div>
+
+    
+
+</body>
+</html>
