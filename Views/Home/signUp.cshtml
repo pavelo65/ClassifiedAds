@@ -1,0 +1,148 @@
+﻿@model ClassifiedAds.Models.User
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+  
+    
+      <!-- /Static navbar --> 
+      <!-- Content -->
+      <div class="row content">
+        <div class="col-lg-3 content-left">
+            <h4>Search</h4>
+            <a href="/Ads/search" class="btn btn-success btn-lg">Search Classifieds</a>
+            <br />
+          <h4>Categories</h4>
+            <div class="list-group categories">
+                <a href="/Ads/category/Books" class="list-group-item">Books <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Cameras" class="list-group-item">Cameras & Photo <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Cell" class="list-group-item">Cell Phones & Accessories <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Clothing" class="list-group-item">Clothing, Shoes & Accessories <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Computers" class="list-group-item">Computers & Networking <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/DVDs" class="list-group-item">DVDs & Movies <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Health" class="list-group-item">Health & Beauty <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Music" class="list-group-item">Music <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/ToysS" class="list-group-item">Toys & Hobbies <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+          
+        </div>
+        <div class="col-lg-9 content-right">
+          <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("Sign Up", "signUp", "Home")</li>
+          </ol>
+          <h2>Sign Up</h2>
+          <p>Please provide your information below to create an account.</p>
+          <hr>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="well">
+                @using (Html.BeginForm("signUp", "Home", FormMethod.Post, new { role = "form" }))
+                {
+                   
+                    <br />
+                    <div class="form-group">
+                    <div class="row">
+                      <div class="col-xs-6 col-md-6">
+                          @Html.TextBoxFor(model => model.firstName, new { @class = "form-control", placeholder = "First name", type = "text" })
+                          
+                          @Html.ValidationMessageFor(model => model.firstName)
+                      </div>
+                      <div class="col-xs-6 col-md-6">
+                        
+                          @Html.TextBoxFor(model => model.lastName, new { @class = "form-control", placeholder = "Last name", type = "text" })
+                          
+                          @Html.ValidationMessageFor(model => model.lastName)
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    
+                      @Html.TextBoxFor(model => model.email, new { @class = "form-control", placeholder="Your email", type="email" })
+                      
+                        @Html.ValidationMessageFor(model => model.email)
+                      <div id="checkEmail"><font color="red">*Email Already Registered</font></div>
+                      <div id="checkEmail2"><font color="green">Email Available</font></div>
+                      <br/>
+                      <button class="btn btn-sm btn-info " type="button" id="checkButton">Check Email</button> 
+                      
+
+                  </div>
+                    <div class="form-group">
+                        
+                        @Html.TextBoxFor(model => model.phone, new { @class = "form-control", placeholder="Your phone number" ,type="number" })
+                        
+                        @Html.ValidationMessageFor(model => model.phone)
+                    </div>
+                  <div class="form-group">
+                    
+                      @Html.TextBoxFor(model => model.password, new { @class = "form-control", placeholder="New password", type="password" })
+                      
+                      @Html.ValidationMessageFor(model => model.password)
+                  </div>
+                  
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+                }
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Content -->
+
+    <link href="~/Content/error.css" rel="stylesheet" media="screen">
+      
+    <!-- JS -->
+      <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+      <script src="~/Scripts/bootstrap.min.js"></script>
+      <script src="~/Scripts/respond.min.js"></script>
+      <script src="~/Scripts/jquery.slides.min.js"></script>
+    <script>
+    $( document ).ready(function() {
+      // Drop down menu handler
+      $('.dropdown-menu').find('form').click(function (e) {
+        e.stopPropagation();
+      });
+
+
+      $('#checkEmail').hide();
+      $('#checkEmail2').hide();
+
+      $('#checkButton').click(function () {
+
+          $('#checkEmail').hide();
+          $('#checkEmail2').hide();
+
+          var mail = $('#email').val();
+
+          $.getJSON("/Home/checkUserEmail?email=" + mail, function (data) {
+              if (data) {
+
+                  $('#checkEmail2').show();
+
+              }
+              else {
+                  $('#checkEmail').show();
+                  
+              }
+          });
+
+
+
+
+      });
+
+      
+
+
+
+    });
+    </script>
+    <!-- /JS -->
+  
+</html>

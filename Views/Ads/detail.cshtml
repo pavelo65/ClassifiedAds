@@ -1,0 +1,144 @@
+﻿@model ClassifiedAds.Models.AdUserViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+    
+      <!-- /Static navbar --> 
+      <!-- Content -->
+      <div class="row content">
+        <div class="col-lg-3 content-left">
+            <h4>Search</h4>
+            <a href="/Ads/search" class="btn btn-success btn-lg">Search Classifieds</a>
+            <br />
+          <h4>Categories</h4>
+            <div class="list-group categories">
+                <a href="/Ads/category/Books" class="list-group-item">Books <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Cameras" class="list-group-item">Cameras & Photo <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Cell" class="list-group-item">Cell Phones & Accessories <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Clothing" class="list-group-item">Clothing, Shoes & Accessories <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Computers" class="list-group-item">Computers & Networking <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/DVDs" class="list-group-item">DVDs & Movies <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Health" class="list-group-item">Health & Beauty <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Music" class="list-group-item">Music <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/ToysS" class="list-group-item">Toys & Hobbies <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+          
+        </div>
+        <div class="col-lg-9 content-right">        
+            <div>
+                <ol class="breadcrumb">
+                    <li><a href="/Ads/update/@Model.ad.Id">Update</a></li>
+                    <li><a href="/Ads/Delete/@Model.ad.Id">Delete</a></li>
+                </ol>
+            </div>
+                
+          <h2>@Model.ad.title</h2>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12" id="slider">
+                  <div class="col-md-12" id="carousel-bounding-box" style="padding: 0;">
+                    <div id="detailCarousel" class="carousel slide">
+                      <div class="carousel-inner">
+                        <div class="active item" data-slide-number="0">
+                            <img src="@Model.ad.image" class="img-responsive" />
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+               
+            </div>
+            <div class="col-md-4">
+              <table class="table table-condensed table-hover">
+                <thead>
+                  <th colspan="2">Details:</th>
+                </thead>
+                <tbody style="font-size: 12px;">
+                  
+                  <tr>
+                    <td>Price</td>
+                    <td>@Model.ad.price PKR</td>
+                  </tr>
+                  <tr>
+                    <td>Status</td>
+                    <td>@Model.ad.status</td>
+                  </tr>
+                  <tr>
+                    <td>Brand</td>
+                    <td>@Model.ad.brand</td>
+                  </tr>
+                  <tr>
+                    <td>Category</td>
+                    <td>@Model.ad.category</td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+              <div class="row">
+                <div class="col-md-12">
+                  <span style="padding-left: 5px;"><strong>Seller:</strong></span>
+                  <div class="well">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h4><a href="#">@Model.user.firstName  @Model.user.lastName</a></h4>
+                    
+                        <span class="glyphicon glyphicon-envelope"></span> @Model.user.email<br />
+                        <span class="glyphicon glyphicon-phone-alt"></span> @Model.user.phone<br />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h4>Description</h4>
+              <p style="text-align: justify;">@Model.ad.description</p>
+            </div>
+          </div>
+      
+        </div>
+      </div>
+      <!-- /Content -->
+      
+    <!-- JS -->
+      <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+      <script src="~/Scripts/bootstrap.min.js"></script>
+      <script src="~/Scripts/respond.min.js"></script>
+      <script src="~/Scripts/jquery.slides.min.js"></script>
+    <script>
+    $( document ).ready(function() {
+      // Drop down menu handler
+      $('.dropdown-menu').find('form').click(function (e) {
+        e.stopPropagation();
+      });
+      // Carousel (slider)
+      $('#detailCarousel').carousel({
+        interval: 4000
+      });
+      $('[id^=carousel-selector-]').click( function(){
+        var id_selector = $(this).attr("id");
+        var id = id_selector.substr(id_selector.length -1);
+        id = parseInt(id);
+        $('#detailCarousel').carousel(id);
+        $('[id^=carousel-selector-]').removeClass('selected');
+        $(this).addClass('selected');
+      });
+      $('#detailCarousel').on('slid', function (e) {
+        var id = $('.item.active').data('slide-number');
+        id = parseInt(id);
+        $('[id^=carousel-selector-]').removeClass('selected');
+        $('[id^=carousel-selector-'+id+']').addClass('selected');
+      });
+    });
+    </script>
+    <!-- /JS -->
+  
+</html>

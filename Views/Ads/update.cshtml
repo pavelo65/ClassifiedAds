@@ -1,0 +1,150 @@
+﻿@model ClassifiedAds.Models.Ad
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+ 
+    
+      <!-- /Static navbar --> 
+      <!-- Content -->
+      <div class="row content">
+        <div class="col-lg-3 content-left">
+            <h4>Search</h4>
+            <a href="/Ads/search" class="btn btn-success btn-lg">Search Classifieds</a>
+            <br />
+          <h4>Categories</h4>
+            <div class="list-group categories">
+                <a href="/Ads/category/Books" class="list-group-item">Books <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Cameras" class="list-group-item">Cameras & Photo <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Cell" class="list-group-item">Cell Phones & Accessories <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Clothing" class="list-group-item">Clothing, Shoes & Accessories <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Computers" class="list-group-item">Computers & Networking <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/DVDs" class="list-group-item">DVDs & Movies <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Health" class="list-group-item">Health & Beauty <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/Music" class="list-group-item">Music <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a href="/Ads/category/ToysS" class="list-group-item">Toys & Hobbies <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+          
+        </div>
+        <div class="col-lg-9 content-right">
+          <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home","Index","Home")</li>
+            <li>@Html.ActionLink("Add classified", "addClassified", "Ads")</li>
+          </ol>
+          <h2>Add classified</h2>
+          <p>Post your ads by filling the form below. CZSale - Classified Ads Website is free and always will be. Enjoy !!!</p>
+          <hr>
+            
+             <form role="form" method="post" action="/Ads/confirmUpdate/@Model.Id" enctype="multipart/form-data">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Classified sections</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="newAd.category">Category</label>
+                            <select id="newAd.category" name="newAd.category" class="form-control">
+
+                                <option selected="selected">@Model.category</option>
+                                <option>Books</option>
+                                <option>Cameras & Photo</option>
+                                <option>Cell Phones & Accessories</option>
+                                <option>Clothing, Shoes & Accessories</option>
+                                <option>Computers & Networking</option>
+                                <option>DVDs & Movies</option>
+                                <option>Health & Beauty</option>
+                                <option>Music</option>
+                                <option>Toys & Hobbies</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Classified details</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label for="heading">Title</label>
+                            <input type="text" class="form-control" id="newAd.title" name="newAd.title" value="@Model.title" placeholder="eg. Apple iPad mini 32GB Wi-Fi + Cellular 1 Year Warranty">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="heading">Brand</label>
+                            <input type="text" class="form-control" id="newAd.brand" value="@Model.brand" name="newAd.brand" placeholder="Apple,Nokia,LG">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newAd.status">Status</label>
+                            <select id="newAd.status" name="newAd.status" class="form-control">
+
+                                <option selected="selected">@Model.status</option>
+                                <option>New</option>
+                                <option>Used</option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text">Description</label>
+                            <textarea id="newAd.description" name="newAd.description" class="form-control" rows="6">@Model.description</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group" style="width: 150px;">
+                                        <input type="number" class="form-control" id="newAd.price" value="@Model.price" name="newAd.price">
+                                        <span class="input-group-addon">PKR</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Classified images</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Select image</label>
+                            <input type="file" name="file" id="file">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="well">
+                    <p>Click here to post the ad.</p>
+
+                    <button type="submit" class="btn btn-success">Update Ad</button>
+                </div>
+            </form>
+        </div>
+      </div>
+      <!-- /Content -->
+      
+    <!-- JS -->
+      <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+      <script src="~/Scripts/bootstrap.min.js"></script>
+      <script src="~/Scripts/respond.min.js"></script>
+      <script src="~/Scripts/jquery.slides.min.js"></script>
+    <script>
+    $( document ).ready(function() {
+      // Drop down menu handler
+      $('.dropdown-menu').find('form').click(function (e) {
+        e.stopPropagation();
+      });
+    });
+    </script>
+    <!-- /JS -->
+  
+</html>
